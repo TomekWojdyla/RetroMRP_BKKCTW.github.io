@@ -21,7 +21,7 @@ body {
 /* LAYOUT */
 header {
   position: relative;
-  height: 35vh;
+  height: 15vh;
   border-bottom: 7px solid #eee;
 }
 
@@ -38,6 +38,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-size: 2rem;
 }
 
 .right {
@@ -51,15 +52,15 @@ h1 {
   text-align: center;
   position: absolute;
   width: 100%;
-  top: 52%;
+  top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-.number {
+.titleblock {
   background: #eee;
   color: #333;
-  font-size: 6rem;
+  font-size: 4rem;
   width: 100rem;
   padding: 3rem 0rem;
   text-align: center;
@@ -82,12 +83,12 @@ h1 {
   left: 2rem;
 }
 
-.guess {
+.product_L0 {
   background: none;
   border: 4px solid #eee;
   font-family: inherit;
   color: inherit;
-  font-size: 5rem;
+  font-size: 2rem;
   padding: 2.5rem;
   width: 25rem;
   text-align: center;
@@ -95,7 +96,7 @@ h1 {
   margin-bottom: 3rem;
 }
 
-.btn {
+.button {
   border: none;
   background-color: #eee;
   color: #222;
