@@ -43,9 +43,16 @@ header {
   border-bottom: 7px solid #eee;
 }
 
-.input-section-content {
+.input-section-content-L0 {
   margin-top: 4rem;
   visibility: hidden;
+  align-items: center;
+  justify-content: space-around;
+  display: flex;
+}
+
+.input-section-content-L1 {
+  margin-top: 4rem;
   align-items: center;
   justify-content: space-around;
   display: flex;

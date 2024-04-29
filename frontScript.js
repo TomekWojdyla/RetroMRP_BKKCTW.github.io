@@ -53,6 +53,18 @@ document.querySelector('#add-product-btn').addEventListener('click', function ()
 
 //add subitem L1
 document.querySelector('#add-L1').addEventListener('click', function () {
-  const newItem = document.getElementById('#L1');
-  document.querySelector('#L1').style.visibility = 'visible';
+  let newItem = document.getElementById('L1');
+  // document.querySelector('#L1').style.visibility = 'visible';
+  // newItem.innerHTML = `<p>Print this text</p>`;
+  newItem.innerHTML = `<h1>L1</h1>
+  <p>
+    Product name <span><input class="product_L0" /></span>
+  </p>
+  <p>
+    Quantity <span><input type="number" class="product_L0" /></span>
+  </p>
+  <p>
+    Production time<span><input type="number" class="product_L0" /></span>
+  </p>
+  <button class="btn" id="add-L1">Add sub-item (L2)</button>`;
 });
