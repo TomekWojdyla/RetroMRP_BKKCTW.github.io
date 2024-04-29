@@ -23,38 +23,51 @@ header {
   position: relative;
   height: 15vh;
   border-bottom: 7px solid #eee;
-}
-
-main {
-  height: 65vh;
-  color: #eee;
   display: flex;
   align-items: center;
   justify-content: space-around;
 }
 
-.left {
-  width: 52rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 2rem;
+.top {
+  margin-top: 8rem;
 }
 
-.right {
-  width: 52rem;
+/* .input {
+  border-bottom: 7px solid #eee;
+  align-items: center;
+  justify-content: space-around;
+  display: flex;
+} */
+
+.input {
+  border-bottom: 7px solid #eee;
+}
+
+.input-section-content {
+  margin-top: 4rem;
+  visibility: hidden;
+  align-items: center;
+  justify-content: space-around;
+  display: flex;
+}
+
+main {
   font-size: 2rem;
+  color: #eee;
 }
 
 /* ELEMENTS STYLE */
-h1 {
-  font-size: 4rem;
+#title {
   text-align: center;
   position: absolute;
   width: 100%;
   top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+h1 {
+  font-size: 4rem;
 }
 
 .titleblock {
@@ -106,15 +119,15 @@ h1 {
   cursor: pointer;
 }
 
+.save-btn {
+  visibility: hidden;
+}
+
 .btn:hover {
   background-color: #ccc;
 }
 
 .message {
-  margin-bottom: 8rem;
+  margin-top: 8rem;
   height: 3rem;
-}
-
-.label-score {
-  margin-bottom: 2rem;
 }

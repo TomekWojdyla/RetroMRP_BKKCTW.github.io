@@ -41,18 +41,18 @@ document.querySelector('.check').addEventListener('click', function () {
     }
   }
 });
-
-//reset the game with 'Again' button
-document.querySelector('.again').addEventListener('click', function () {
-  document.querySelector('body').style.backgroundColor = '#222';
-  document.querySelector('.number').style.width = '15rem';
-  document.querySelector('.number').textContent = '?';
-  displayMessage('Start guessing...');
-  document.querySelector('.guess').value = '';
-  secretNumber = Math.trunc(Math.random() * 20) + 1;
-  score = 20;
-  document.querySelector('.score').textContent = score;
-});
 */
 
-//CODE OF MRP PAGE
+//MRP BUTTONS SCRIPT
+
+//display section of product data entry
+document.querySelector('#add-product-btn').addEventListener('click', function () {
+  document.querySelector('.product-details').style.visibility = 'visible';
+  document.querySelector('#save-product-btn').style.visibility = 'visible';
+});
+
+//add subitem L1
+document.querySelector('#add-L1').addEventListener('click', function () {
+  const newItem = document.getElementById('#L1');
+  document.querySelector('#L1').style.visibility = 'visible';
+});

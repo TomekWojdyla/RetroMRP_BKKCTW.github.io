@@ -9,35 +9,43 @@
   </head>
   <body>
     <header>
-      <h1>Retro MRP mock-up</h1>
+      <h1 id="title">Retro MRP mock-up</h1>
       <p class="between">Text here if needed</p>
       <button class="btn again">Start again</button>
       <div class="titleblock">Feed the monster with data...</div>
     </header>
     <main>
-      <section class="left">
-        <p>
-          Product name <span><input class="product_L0" /></span>
-        </p>
-        <p>
-          Quantity <span><input type="number" class="product_L0" /></span>
-        </p>
-        <p>
-          Prod. time
-          <span><input type="number" class="product_L0" /></span>
-        </p>
-        <button class="btn message">Add product (L0)</button>
-        <p></p>
-        <button class="btn message">Add sub-item (L1)</button>
+      <section class="input top">
+        <button class="btn section-btn" id="add-product-btn">Add product (L0)</button>
+        <button class="btn section-btn save-btn" id="save-product-btn">Save product</button>
+        <div class="input-section-content product-details">
+          <h1>L0</h1>
+          <p>
+            Product name <span><input class="product_L0" /></span>
+          </p>
+          <p>
+            Production time<span><input type="number" class="product_L0" /></span>
+          </p>
+          <button class="btn" id="add-L1">Add sub-item (L1)</button><br />
+          <div class="input-section-content" id="L1" style="visibility: hidden">
+            <h1>L1</h1>
+            <p>
+              Product name <span><input class="product_L0" /></span>
+            </p>
+            <p>
+              Quantity <span><input type="number" class="product_L0" /></span>
+            </p>
+            <p>
+              Production time<span><input type="number" class="product_L0" /></span>
+            </p>
+            <button class="btn" id="add-L1">Add sub-item (L2)</button>
+          </div>
+        </div>
       </section>
-      <section class="right">
+      <section class="input">
         <p class="message">Text 1</p>
-        <p class="label-score">Text 2 <span class="score">number</span></p>
-        <p class="label-highscore">
-          Text 3 <span class="highscore">number</span>
-        </p>
       </section>
     </main>
-    <script src="script.js"></script>
+    <script src="frontScript.js"></script>
   </body>
 </html>
