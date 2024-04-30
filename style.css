@@ -32,13 +32,6 @@ header {
   margin-top: 8rem;
 }
 
-/* .input {
-  border-bottom: 7px solid #eee;
-  align-items: center;
-  justify-content: space-around;
-  display: flex;
-} */
-
 .input {
   border-bottom: 7px solid #eee;
 }
@@ -52,7 +45,14 @@ header {
 }
 
 .input-section-content-L1 {
-  margin-top: 4rem;
+  margin-top: 2rem;
+  align-items: center;
+  justify-content: space-around;
+  display: flex;
+}
+
+.input-section-content-L2 {
+  margin-top: 2rem;
   align-items: center;
   justify-content: space-around;
   display: flex;
