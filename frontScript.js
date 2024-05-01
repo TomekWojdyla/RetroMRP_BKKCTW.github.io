@@ -14,13 +14,13 @@ document.querySelector('#add-L1_1').addEventListener('click', function () {
   let newItem = document.getElementById('L1_1');
   newItem.innerHTML = `<h1>L1</h1>
   <p>
-    Product name <span><input class="product_L0" /></span>
+    Product name <span><input class="product_L0" id="L1_1-name"/></span>
   </p>
   <p>
-    Quantity <span><input type="number" class="product_L0" /></span>
+    Quantity <span><input type="number" class="product_L0" id="L1_1-quantity"/></span>
   </p>
   <p>
-    Production time<span><input type="number" class="product_L0" /></span>
+    Production time<span><input type="number" class="product_L0" id="L1_1-production-time"/></span>
   </p>
   <button class="btn" onclick ="L2_1_1()" id="add-L2_1_1">Add sub-item 1</button>
   <button class="btn" onclick ="L2_1_2()" id="add-L2_1_2">Add sub-item 2</button>
@@ -84,13 +84,13 @@ document.querySelector('#add-L1_2').addEventListener('click', function () {
   let newItem = document.getElementById('L1_2');
   newItem.innerHTML = `<h1>L1</h1>
   <p>
-    Product name <span><input class="product_L0" /></span>
+    Product name <span><input class="product_L0" id="L1_2-name"/></span>
   </p>
   <p>
-    Quantity <span><input type="number" class="product_L0" /></span>
+    Quantity <span><input type="number" class="product_L0" id="L1_2-quantity"/></span>
   </p>
   <p>
-    Production time<span><input type="number" class="product_L0" /></span>
+    Production time<span><input type="number" class="product_L0" id="L1_2-production-time"/></span>
   </p>
   <button class="btn" onclick ="L2_2_1()" id="add-L2_2_1">Add sub-item 1</button>
   <button class="btn" onclick ="L2_2_2()" id="add-L2_2_2">Add sub-item 2</button>
@@ -154,13 +154,13 @@ document.querySelector('#add-L1_3').addEventListener('click', function () {
   let newItem = document.getElementById('L1_3');
   newItem.innerHTML = `<h1>L1</h1>
   <p>
-    Product name <span><input class="product_L0" /></span>
+    Product name <span><input class="product_L0" id="L1_3-name"/></span>
   </p>
   <p>
-    Quantity <span><input type="number" class="product_L0" /></span>
+    Quantity <span><input type="number" class="product_L0" id="L1_3-quantity"/></span>
   </p>
   <p>
-    Production time<span><input type="number" class="product_L0" /></span>
+    Production time<span><input type="number" class="product_L0" id="L1_3-production-time"/></span>
   </p>
   <button class="btn" onclick ="L2_3_1()" id="add-L2_3_1">Add sub-item 1</button>
   <button class="btn" onclick ="L2_3_2()" id="add-L2_3_2">Add sub-item 2</button>
@@ -218,3 +218,56 @@ function L2_3_3() {
   <button class="btn">No subitems allowed</button>`;
   document.querySelector('#add-L2_3_3').style.visibility = 'hidden';
 }
+
+//save product and display its structure
+document.querySelector('#save-product-btn').addEventListener('click', function () {
+  let product_json = {};
+  product_json['productName'] = document.querySelector('#L0-name').value;
+  product_json['productProductionTime'] = Number(document.querySelector('#L0-production-time').value);
+
+  let productStructure = document.getElementById('product-structure');
+  let productStructureText = '';
+  let L0 = `<p>Product saved succesfully!</p>
+  <p>L0 Product Name: ${product_json['productName']} </p>
+  <p>L0 Product's Production/Assembly Time: ${product_json['productProductionTime']} days </p>`;
+
+  let subItemsL1 = ``;
+  try {
+    for (let i = 1; i < 4; i++) {
+      let nextIDName = `#L1_${i}-name`;
+      let nextIDQuantity = `#L1_${i}-quantity`;
+      let nextIDProductionTime = `#L1_${i}-production-time`;
+      let newSubitem = `<p>L1 Subitem ${i}</p> 
+      <li>     Product Name: ${document.querySelector(nextIDName).value}</li> 
+      <li>     Quantity: ${document.querySelector(nextIDQuantity).value}</li>
+      <li>     Production Time: ${document.querySelector(nextIDProductionTime).value} days</li>`;
+      subItemsL1 += newSubitem;
+
+      //Extending Product JSON with subitems
+      let jsonKey = `SubitemL1_${i}`;
+      let jsonValue = {};
+      product_json[jsonKey] = {};
+      jsonValue['L1SubitemName'] = document.querySelector(nextIDName).value;
+      jsonValue['L1SubitemQuantity'] = Number(document.querySelector(nextIDQuantity).value);
+      jsonValue['L1SubitemProductionTime'] = Number(document.querySelector(nextIDProductionTime).value);
+      product_json[jsonKey] = jsonValue;
+    }
+    productStructure.innerHTML = productStructureText + L0 + subItemsL1;
+
+    document.querySelector('#L1_1').innerHTML = ``;
+    document.querySelector('#L1_2').innerHTML = ``;
+    document.querySelector('#L1_3').innerHTML = ``;
+  } catch {
+    subItemsL1 = `<p>No Subitems</p>`;
+    productStructure.innerHTML = productStructureText + L0 + subItemsL1;
+  }
+
+  document.querySelector('#save-product-btn').style.visibility = 'hidden';
+  document.querySelector('#add-product-btn').style.visibility = 'visible';
+  document.querySelector('.input-section-content-L0').style.visibility = 'hidden';
+  console.log(product_json);
+});
+
+// document.querySelector('.check').addEventListener('click', function () {
+//   const guess = Number(document.querySelector('.guess').value);
+//   console.log(guess, typeof guess);

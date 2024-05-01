@@ -58,6 +58,11 @@ header {
   display: flex;
 }
 
+.description {
+  line-height: 3rem;
+  margin-left: 5rem;
+}
+
 main {
   font-size: 2rem;
   color: #eee;
