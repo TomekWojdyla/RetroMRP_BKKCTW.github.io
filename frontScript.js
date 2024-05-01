@@ -2,6 +2,11 @@
 
 //MRP BUTTONS SCRIPT
 
+//Reload Page with 'Start again' button
+document.querySelector('.again').addEventListener('click', function () {
+  location.reload();
+});
+
 //display section of product data entry
 document.querySelector('#add-product-btn').addEventListener('click', function () {
   document.querySelector('.product-details').style.visibility = 'visible';

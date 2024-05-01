@@ -28,12 +28,14 @@ header {
   justify-content: space-around;
 }
 
-.top {
+.input-top {
+  border-bottom: 7px solid #eee;
   margin-top: 8rem;
 }
 
 .input {
   border-bottom: 7px solid #eee;
+  margin-top: 2rem;
 }
 
 .input-section-content-L0 {
@@ -56,6 +58,14 @@ header {
   align-items: center;
   justify-content: space-around;
   display: flex;
+}
+
+.input-stock {
+  margin-bottom: 2rem; 
+}
+
+.input-order {
+  margin-bottom: 2rem; 
 }
 
 .description {
@@ -129,6 +139,10 @@ h1 {
   font-family: inherit;
   padding: 2rem 3rem;
   cursor: pointer;
+}
+
+.section-btn {
+  margin-left: 2rem;
 }
 
 .save-btn {
