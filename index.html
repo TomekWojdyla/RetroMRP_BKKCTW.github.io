@@ -45,12 +45,17 @@
         <div class="description" id="product-structure"></div>
       </section>
       <section class="input">
-        <button class="btn section-btn" id="add-order-btn">Add stock</button>
+        <button class="btn section-btn" id="add-stock-btn">Add stock</button>
         <div class="input-stock"></div>
       </section>
       <section class="input">
-        <button class="btn section-btn" id="add-order-btn">Add order</button>
-        <div class="input-order"></div>
+        <button class="btn section-btn" id="add-order-btn" onclick="addOrder()">Add order</button>
+        <button class="btn section-btn save-btn" id="save-order-btn" onclick="saveOrder()">Save order</button>
+        <div class="input-section-order" id="input-order"></div>
+      </section>
+      <section class="input">
+        <button class="btn magic-btn" id="calculations" onclick="">Run magic...</button>
+        <div class="output-section" id="calculation-results"></div>
       </section>
     </main>
     <script src="frontScript.js"></script>

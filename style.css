@@ -61,11 +61,21 @@ header {
 }
 
 .input-stock {
-  margin-bottom: 2rem; 
+  margin-bottom: 2rem;
 }
 
-.input-order {
-  margin-bottom: 2rem; 
+.input-section-order {
+  margin-bottom: 2rem;
+  align-items: center;
+  justify-content: space-around;
+  display: flex;
+}
+
+.output-section {
+  margin-bottom: 2rem;
+  align-items: center;
+  justify-content: space-around;
+  display: flex;
 }
 
 .description {
@@ -143,6 +153,12 @@ h1 {
 
 .section-btn {
   margin-left: 2rem;
+}
+
+.magic-btn {
+  margin-left: 2rem;
+  background-color: green;
+  color: white;
 }
 
 .save-btn {

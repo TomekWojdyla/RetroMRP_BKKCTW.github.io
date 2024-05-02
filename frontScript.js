@@ -273,6 +273,26 @@ document.querySelector('#save-product-btn').addEventListener('click', function (
   console.log(product_json);
 });
 
-// document.querySelector('.check').addEventListener('click', function () {
-//   const guess = Number(document.querySelector('.guess').value);
-//   console.log(guess, typeof guess);
+// Adding order for P0 product
+function addOrder() {
+  document.querySelector('#save-order-btn').style.visibility = 'visible';
+  document.querySelector('#add-order-btn').style.visibility = 'hidden';
+  document.querySelector('#input-order').innerHTML = `
+  <p>Place order for L0 products: </p>
+  <p>
+  Quantity (ea.)<span><input type="number" class="product_L0" id = "order-quantity" value=""/></span>
+  </p>`;
+  if (L0ProductOrder) {
+    document.querySelector('#order-quantity').defaultValue = L0ProductOrder;
+  }
+};
+
+//Saving Product Order
+function saveOrder() {
+  let L0ProductOrder = Number(document.querySelector(`#order-quantity`).value);
+  document.querySelector('#input-order').innerHTML = `Order: ${L0ProductOrder} ea. of L0 Product`;
+  document.querySelector('#save-order-btn').style.visibility = 'hidden';
+  document.querySelector('#add-order-btn').style.visibility = 'visible';
+  document.querySelector('#add-order-btn').innerHTML = 'Edit order';
+  return L0ProductOrder;
+}
