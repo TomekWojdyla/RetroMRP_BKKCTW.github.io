@@ -54,7 +54,7 @@ function addSubitemL1() {
   if (subitmesL1Count===3) {
     document.querySelector("#add-L1").innerHTML = `MAX subitems added!`
   };
-  console.log(subitmesL1Count)
+  //console.log(subitmesL1Count)
 };
 
 let subitemsL2Count = {
@@ -93,14 +93,15 @@ let product_json = {};
 
 //save product and display its structure
 document.querySelector('#save-product-btn').addEventListener('click', function () {
-  product_json['productName'] = document.querySelector('#L0-name').value;
-  product_json['productProductionTime'] = Number(document.querySelector('#L0-production-time').value);
+  product_json['Name'] = document.querySelector('#L0-name').value;
+  product_json['Type'] = 'L0';
+  product_json['ProductionTime'] = Number(document.querySelector('#L0-production-time').value);
 
   let productStructure = document.getElementById('product-structure');
   let productStructureText = '';
   let L0 = `<p>Product saved succesfully!</p>
-  <p>L0 Product Name: ${product_json['productName']} </p>
-  <p>L0 Product's Production/Assembly Time: ${product_json['productProductionTime']} day(s) </p>`;
+  <p>L0 Product Name: ${product_json['Name']} </p>
+  <p>L0 Product's Production/Assembly Time: ${product_json['ProductionTime']} day(s) </p>`;
 
   let subItemsL1 = ``;
 
@@ -121,9 +122,10 @@ document.querySelector('#save-product-btn').addEventListener('click', function (
       let jsonKeyL1 = `SubitemL1_${i}`;
       let jsonValueL1 = {};
       product_json[jsonKeyL1] = {};
-      jsonValueL1['L1SubitemName'] = nextSubitemName;
-      jsonValueL1['L1SubitemQuantity'] = Number(nextSubitemQuantity);
-      jsonValueL1['L1SubitemProductionTime'] = Number(nextSubitemProductionTime);
+      jsonValueL1['Name'] = nextSubitemName;
+      jsonValueL1['Type'] = 'L1';
+      jsonValueL1['Quantity'] = Number(nextSubitemQuantity);
+      jsonValueL1['ProductionTime'] = Number(nextSubitemProductionTime);
       // jsonValueL1['SubitemL2_1_1']={}
       product_json[jsonKeyL1] = jsonValueL1;
 
@@ -145,9 +147,10 @@ document.querySelector('#save-product-btn').addEventListener('click', function (
         //Extending Product JSON with subitems L2 for (i) Subitem L1
         let jsonKeyL2 = `SubitemL2_${i}_${j}`;
         let jsonValueL2 = {};
-        jsonValueL2['L2SubitemName'] = nextL2SubitemName;
-        jsonValueL2['L2SubitemQuantity'] = Number(nextL2SubitemQuantity);
-        jsonValueL2['L2SubitemProductionTime'] = Number(nextL2SubitemProductionTime);
+        jsonValueL2['Name'] = nextL2SubitemName;
+        jsonValueL2['Type'] = 'L2';
+        jsonValueL2['Quantity'] = Number(nextL2SubitemQuantity);
+        jsonValueL2['ProductionTime'] = Number(nextL2SubitemProductionTime);
         // console.log(jsonValueL2)
         product_json[jsonKeyL1][jsonKeyL2] = jsonValueL2;
       };
@@ -162,7 +165,8 @@ document.querySelector('#save-product-btn').addEventListener('click', function (
   document.querySelector('#add-product-btn').innerHTML = 'Edit product';
   document.querySelector('.input-section-content-L0').style.visibility = 'hidden';
   document.querySelector("#product-input").innerHTML = ``;
-  console.log(product_json);
+  //console.log(product_json);
+  localStorage.setItem("productSchematic",JSON.stringify(product_json));
 });
 
 
