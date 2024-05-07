@@ -40,7 +40,7 @@ header {
 
 .input-section-content-L0 {
   margin-top: 4rem;
-  visibility: hidden;
+  visibility: visible;
   align-items: center;
   justify-content: space-around;
   display: flex;
