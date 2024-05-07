@@ -35,7 +35,7 @@ function addSubitemL1() {
   const currentSubitemStructure = document.querySelector("#L1-input").outerHTML
   const newSubitemStructure = 
   `<div class = "input-section-content-L1" id = "L1_${subitmesL1Count}-input">
-  <h1>L1:${subitmesL1Count}</h1>
+  <h2>L1:${subitmesL1Count}</h2>
   <p>
     Product name <span><input class="product_L0" id="L1_${subitmesL1Count}-name" /></span>
   </p>
@@ -70,7 +70,7 @@ function addSubitemL2(L1ItemNumber) {
   const currentSubitemStructure = document.querySelector(`#L${L1ItemNumber}-2-input`).outerHTML
   const newSubitemStructure = 
   `<div class = "input-section-content-L2" id = "L2_${L1ItemNumber}_${subitemsL2Count[L1ItemNumber]}-input">
-  <h1>L2:${L1ItemNumber}.${subitemsL2Count[L1ItemNumber]}</h1>
+  <h3>L2:${L1ItemNumber}.${subitemsL2Count[L1ItemNumber]}</h3>
   <p>
     Product name <span><input class="product_L0" id="L2_${L1ItemNumber}_${subitemsL2Count[L1ItemNumber]}-name" /></span>
   </p>
@@ -98,9 +98,12 @@ document.querySelector('#save-product-btn').addEventListener('click', function (
 
   let productStructure = document.getElementById('product-structure');
   let productStructureText = '';
-  let L0 = `<p>Product saved succesfully!</p>
-  <p>L0 Product Name: ${product_json['productName']} </p>
-  <p>L0 Product's Production/Assembly Time: ${product_json['productProductionTime']} day(s) </p>`;
+  let L0 = `<div class = "list-L0">
+  <p class="text-OK">Product saved succesfully!</p>
+  <p>Product L0:</p>
+  <li>Product Name: ${product_json['productName']} </li>
+  <li>Production/Assembly Time: ${product_json['productProductionTime']} day(s) </li>
+  </div>`;
 
   let subItemsL1 = ``;
 
@@ -111,10 +114,12 @@ document.querySelector('#save-product-btn').addEventListener('click', function (
       let nextSubitemQuantity = document.querySelector(nextIDQuantity).value;
       let nextIDProductionTime = `#L1_${i}-production-time`;
       let nextSubitemProductionTime = document.querySelector(nextIDProductionTime).value;
-      let newSubitem = `<p>L1: Subitem ${i}</p> 
+      let newSubitem = `<div class = "list-L1">
+      <p>L1: Subitem ${i}</p> 
       <li>     Product Name: ${nextSubitemName}</li> 
       <li>     Quantity: ${nextSubitemQuantity}</li>
-      <li>     Production Time: ${nextSubitemProductionTime} day(s)</li>`;
+      <li>     Production Time: ${nextSubitemProductionTime} day(s)</li>
+      </div>`;
       subItemsL1 += newSubitem;
 
       //Extending Product JSON with subitems
@@ -136,10 +141,12 @@ document.querySelector('#save-product-btn').addEventListener('click', function (
         let nextL2SubitemQuantity = document.querySelector(nextL2IDQuantity).value;
         let nextL2IDProductionTime = `#L2_${i}_${j}-production-time`;
         let nextL2SubitemProductionTime = document.querySelector(nextL2IDProductionTime).value;
-        let newL2Subitem = `<p>L2: Subitem ${i}.${j}</p> 
+        let newL2Subitem = `<div class = "list-L2">
+        <p>L2: Subitem ${i}.${j}</p> 
         <li>     Product Name: ${nextL2SubitemName}</li> 
         <li>     Quantity: ${nextL2SubitemQuantity}</li>
-        <li>     Production Time: ${nextL2SubitemProductionTime} day(s)</li>`;
+        <li>     Production Time: ${nextL2SubitemProductionTime} day(s)</li>
+        </div>`;
         subItemsL2 += newL2Subitem;
 
         //Extending Product JSON with subitems L2 for (i) Subitem L1

@@ -60,6 +60,17 @@ header {
   display: flex;
 }
 
+.input-section-order {
+  margin-top: 2rem;
+  align-items: center;
+  justify-content: space-around;
+  display: flex;
+}
+
+.output-bottom {
+  margin-bottom: 2rem; 
+}
+
 .input-product {
   margin-bottom: 2rem; 
 }
@@ -95,6 +106,29 @@ main {
 
 h1 {
   font-size: 4rem;
+}
+
+h2 {
+  font-size: 3rem;
+}
+
+h3 {
+  font-size: 2.5rem;
+}
+
+.list-L0 {
+  margin-left: 2rem;
+  font-size: 2.5rem;
+}
+
+.list-L1 {
+  margin-left: 7rem;
+  font-size: 2rem;
+}
+
+.list-L2 {
+  margin-left: 12rem;
+  font-size: 1.5rem;
 }
 
 .titleblock {
@@ -167,4 +201,8 @@ h1 {
 .message {
   margin-top: 8rem;
   height: 3rem;
+}
+
+.text-OK {
+  color: green;
 }
