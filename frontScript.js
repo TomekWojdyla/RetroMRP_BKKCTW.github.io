@@ -178,18 +178,28 @@ function addOrder() {
   <p>Place order for L0 products: </p>
   <p>
   Quantity (ea.)<span><input type="number" class="product_L0" id = "order-quantity" value=""/></span>
+  </p>
+  <p>
+  Time from now<span><input type="number" class="product_L0" id = "order-fulfillment" value=""/></span>
   </p>`;
-  if (L0ProductOrder) {
-    document.querySelector('#order-quantity').defaultValue = L0ProductOrder;
+  if (typeof L0ProductOrder == 'object') {
+    document.querySelector('#order-quantity').defaultValue = L0OrderQuantity;
+    document.querySelector('#order-fulfillment').defaultValue = L0OrderTime;
   }
 };
 
 //Saving Product Order
 function saveOrder() {
-  let L0ProductOrder = Number(document.querySelector(`#order-quantity`).value);
-  document.querySelector('#input-order').innerHTML = `Order: ${L0ProductOrder} ea. of L0 Product`;
+  let L0OrderQuantity = Number(document.querySelector(`#order-quantity`).value);
+  let L0OrderTime = Number(document.querySelector('#order-fulfillment').value);
+  document.querySelector('#input-order').innerHTML = `Order: ${L0OrderQuantity} ea. of L0 Product in ${L0OrderTime} weeks`;
   document.querySelector('#save-order-btn').style.visibility = 'hidden';
   document.querySelector('#add-order-btn').style.visibility = 'visible';
   document.querySelector('#add-order-btn').innerHTML = 'Edit order';
-  return L0ProductOrder;
+  
+  let jsonOrder = {};
+
+  jsonOrder['Quantity'] = L0OrderQuantity;
+  jsonOrder['Time'] = L0OrderTime;
+  localStorage.setItem("productOrder",JSON.stringify(jsonOrder)); 
 }
