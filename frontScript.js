@@ -149,7 +149,7 @@ document.querySelector('#save-product-btn').addEventListener('click', function (
         jsonValueL2['L2SubitemQuantity'] = Number(nextL2SubitemQuantity);
         jsonValueL2['L2SubitemProductionTime'] = Number(nextL2SubitemProductionTime);
         // console.log(jsonValueL2)
-        product_json[jsonKeyL2] = jsonValueL2;
+        product_json[jsonKeyL1][jsonKeyL2] = jsonValueL2;
       };
       subItemsL1 += subItemsL2
 
