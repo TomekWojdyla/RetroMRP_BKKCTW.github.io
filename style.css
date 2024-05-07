@@ -60,23 +60,18 @@ header {
   display: flex;
 }
 
+.input-product {
+  margin-bottom: 2rem; 
+}
+
 .input-stock {
-  margin-bottom: 2rem;
+  margin-bottom: 2rem; 
 }
 
-.input-section-order {
-  margin-bottom: 2rem;
-  align-items: center;
-  justify-content: space-around;
-  display: flex;
+.input-order {
+  margin-bottom: 2rem; 
 }
-
-.output-section {
-  margin-bottom: 2rem;
-  align-items: center;
-  justify-content: space-around;
-  display: flex;
-}
+/* Three above can be merged into 1 */
 
 .description {
   line-height: 3rem;
