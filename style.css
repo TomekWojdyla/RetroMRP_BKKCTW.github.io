@@ -206,3 +206,7 @@ h3 {
 .text-OK {
   color: green;
 }
+
+.text-error {
+  color: red;
+}

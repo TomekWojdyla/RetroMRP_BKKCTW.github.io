@@ -5,8 +5,12 @@
 //Reload Page with 'Start again' button
 document.querySelector('.again').addEventListener('click', function () {
   location.reload();
+  product_json = {};
+  editFields = [];
 });
 
+let product_json = {};
+let editFields = [];
 
 //Add Product - alternative route (create elements)
 document.querySelector('#add-product-btn').addEventListener('click', function () {
@@ -16,22 +20,28 @@ document.querySelector('#add-product-btn').addEventListener('click', function ()
   `<div class = "input-section-content-L0">
   <h1>L0:</h1>
   <p>
-    Product name <span><input class="product_L0" id="L0-name" /></span>
+    Product name <span><input class = "product_L0" id = "L0-name" value = ""/></span>
   </p>
   <p>
-    Production time<span><input type="number" class="product_L0" id="L0-production-time" /></span>
+    Production time<span><input type = "number" class = "product_L0" id = "L0-production-time" /></span>
   </p>
   <button class="btn" id="add-L1" onclick = "addSubitemL1()">Add sub-item (L1) - Max (3)</button>
   </div>
-  <div id = "L1-input"></div>`
+  <div id = "L1-input"></div>`;
+ if (product_json != {}) {
+  document.querySelector('#L0-name').defaultValue = product_json['productName'];
+  document.querySelector('#L0-production-time').defaultValue = product_json['productProductionTime'];
+ };
 });
 
 let subitmesL1Count = 0;
+let subitemsL2Count = {};
 
 //Add subitems L1
 function addSubitemL1() {
   if (subitmesL1Count<3) {
   subitmesL1Count += 1;
+  subitemsL2Count[subitmesL1Count] = 0;
   const currentSubitemStructure = document.querySelector("#L1-input").outerHTML
   const newSubitemStructure = 
   `<div class = "input-section-content-L1" id = "L1_${subitmesL1Count}-input">
@@ -57,11 +67,6 @@ function addSubitemL1() {
   console.log(subitmesL1Count)
 };
 
-let subitemsL2Count = {
-  1:0,
-  2:0,
-  3:0
-}
 
 //Add subitems L2
 function addSubitemL2(L1ItemNumber) {
@@ -89,12 +94,14 @@ function addSubitemL2(L1ItemNumber) {
   };
 };
 
-let product_json = {};
 
 //save product and display its structure
 document.querySelector('#save-product-btn').addEventListener('click', function () {
   product_json['productName'] = document.querySelector('#L0-name').value;
   product_json['productProductionTime'] = Number(document.querySelector('#L0-production-time').value);
+  editFields.push(product_json['productName']);
+  editFields.push(product_json['productProductionTime']);
+  console.log(editFields);
 
   let productStructure = document.getElementById('product-structure');
   let productStructureText = '';
@@ -162,11 +169,18 @@ document.querySelector('#save-product-btn').addEventListener('click', function (
 
     };
   
-  productStructure.innerHTML = productStructureText + L0 + subItemsL1;
+  //Reaction to nulls in product definition - smth not working yet
+  // if ((0 in editFields)) {
+  //   productStructure.innerHTML = `<p class = "text-error">Some fields were left empty. Please start again.</p>`
+  // } else {
+    productStructure.innerHTML = productStructureText + L0 + subItemsL1;
+    document.querySelector('#add-product-btn').style.visibility = 'visible';
+    document.querySelector('#add-product-btn').innerHTML = 'Edit product';
+    document.querySelector('#add-product-btn').style.backgroundColor = '#e6b400';
+  // };
 
+  //Visibility actions upon save event
   document.querySelector('#save-product-btn').style.visibility = 'hidden';
-  document.querySelector('#add-product-btn').style.visibility = 'visible';
-  document.querySelector('#add-product-btn').innerHTML = 'Edit product';
   document.querySelector('.input-section-content-L0').style.visibility = 'hidden';
   document.querySelector("#product-input").innerHTML = ``;
   console.log(product_json);
@@ -187,12 +201,14 @@ function addOrder() {
   }
 };
 
+let L0ProductOrder = 0;
 //Saving Product Order
 function saveOrder() {
-  let L0ProductOrder = Number(document.querySelector(`#order-quantity`).value);
+  L0ProductOrder = Number(document.querySelector(`#order-quantity`).value);
   document.querySelector('#input-order').innerHTML = `Order: ${L0ProductOrder} ea. of L0 Product`;
   document.querySelector('#save-order-btn').style.visibility = 'hidden';
   document.querySelector('#add-order-btn').style.visibility = 'visible';
+  document.querySelector('#add-order-btn').style.backgroundColor = '#e6b400';
   document.querySelector('#add-order-btn').innerHTML = 'Edit order';
-  return L0ProductOrder;
+  console.log(L0ProductOrder);
 }
