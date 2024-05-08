@@ -205,17 +205,19 @@ function addOrder() {
   <p>
   Time from now<span><input type="number" class="product_L0" id = "order-fulfillment" value=""/></span>
   </p>`;
-  if (typeof L0ProductOrder == 'object') {
+  if (L0OrderQuantity && L0OrderTime) {
     document.querySelector('#order-quantity').defaultValue = L0OrderQuantity;
     document.querySelector('#order-fulfillment').defaultValue = L0OrderTime;
   }
 };
 
-let L0ProductOrder = 0;
+let L0OrderQuantity = 0;
+let L0OrderTime = 0;
+
 //Saving Product Order
 function saveOrder() {
-  let L0OrderQuantity = Number(document.querySelector(`#order-quantity`).value);
-  let L0OrderTime = Number(document.querySelector('#order-fulfillment').value);
+  L0OrderQuantity = Number(document.querySelector(`#order-quantity`).value);
+  L0OrderTime = Number(document.querySelector('#order-fulfillment').value);
   document.querySelector('#input-order').innerHTML = `Order: ${L0OrderQuantity} ea. of L0 Product in ${L0OrderTime} days`;
   document.querySelector('#save-order-btn').style.visibility = 'hidden';
   document.querySelector('#add-order-btn').style.visibility = 'visible';
