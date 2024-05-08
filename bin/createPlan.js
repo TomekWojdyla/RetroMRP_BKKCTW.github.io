@@ -26,7 +26,7 @@ function createPlan(){
             jsonFulfillment = {};
             jsonFulfillment['status'] = 'unachievable';
         } else {
-            newName = `L0-${[schematic['Name']]}`;
+            newName = `L0-${[schematic['name']]}`;
             //TODO rework checkStock()
             quantityL0 = orderQuantity - checkStock(`L0-${[schematic['name']]}`);
             submitOrder(jsonFulfillment, orderID, newName, productionStartL0, quantityL0);
