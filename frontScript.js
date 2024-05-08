@@ -14,6 +14,7 @@ let editFields = [];
 
 //Add Product - alternative route (create elements)
 document.querySelector('#add-product-btn').addEventListener('click', function () {
+  editFields = [];
   document.querySelector('#add-product-btn').style.visibility = 'hidden';
   document.querySelector('#save-product-btn').style.visibility = 'visible';
   document.querySelector("#product-input").innerHTML = 
@@ -101,7 +102,6 @@ document.querySelector('#save-product-btn').addEventListener('click', function (
   product_json['productProductionTime'] = Number(document.querySelector('#L0-production-time').value);
   editFields.push(product_json['productName']);
   editFields.push(product_json['productProductionTime']);
-  console.log(editFields);
 
   let productStructure = document.getElementById('product-structure');
   let productStructureText = '';
@@ -138,6 +138,9 @@ document.querySelector('#save-product-btn').addEventListener('click', function (
       jsonValueL1['L1SubitemProductionTime'] = Number(nextSubitemProductionTime);
       // jsonValueL1['SubitemL2_1_1']={}
       product_json[jsonKeyL1] = jsonValueL1;
+      editFields.push(product_json[jsonKeyL1]['L1SubitemNam']);
+      editFields.push(product_json[jsonKeyL1]['L1SubitemQuantity']);
+      editFields.push(product_json[jsonKeyL1]['L1SubitemProductionTime']);
 
       //Listing L2 subitems
       let subItemsL2 = ``;
@@ -166,18 +169,17 @@ document.querySelector('#save-product-btn').addEventListener('click', function (
         product_json[jsonKeyL1][jsonKeyL2] = jsonValueL2;
       };
       subItemsL1 += subItemsL2
-
     };
   
   //Reaction to nulls in product definition - smth not working yet
-  // if ((0 in editFields)) {
-  //   productStructure.innerHTML = `<p class = "text-error">Some fields were left empty. Please start again.</p>`
-  // } else {
+  if (editFields.includes(0)) {
+    productStructure.innerHTML = `<p class = "text-error">Some fields were left empty. Please start again.</p>`
+  } else {
     productStructure.innerHTML = productStructureText + L0 + subItemsL1;
     document.querySelector('#add-product-btn').style.visibility = 'visible';
     document.querySelector('#add-product-btn').innerHTML = 'Edit product';
     document.querySelector('#add-product-btn').style.backgroundColor = '#e6b400';
-  // };
+  };
 
   //Visibility actions upon save event
   document.querySelector('#save-product-btn').style.visibility = 'hidden';
