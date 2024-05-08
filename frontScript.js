@@ -5,6 +5,7 @@
 //Reload Page with 'Start again' button
 document.querySelector('.again').addEventListener('click', function () {
   location.reload();
+  localStorage.clear();
 });
 
 
@@ -192,7 +193,7 @@ function addOrder() {
 function saveOrder() {
   let L0OrderQuantity = Number(document.querySelector(`#order-quantity`).value);
   let L0OrderTime = Number(document.querySelector('#order-fulfillment').value);
-  document.querySelector('#input-order').innerHTML = `Order: ${L0OrderQuantity} ea. of L0 Product in ${L0OrderTime} weeks`;
+  document.querySelector('#input-order').innerHTML = `Order: ${L0OrderQuantity} ea. of L0 Product in ${L0OrderTime} days`;
   document.querySelector('#save-order-btn').style.visibility = 'hidden';
   document.querySelector('#add-order-btn').style.visibility = 'visible';
   document.querySelector('#add-order-btn').innerHTML = 'Edit order';
