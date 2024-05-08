@@ -31,8 +31,8 @@ document.querySelector('#add-product-btn').addEventListener('click', function ()
   </div>
   <div id = "L1-input"></div>`;
  if (product_json != {}) {
-  document.querySelector('#L0-name').defaultValue = product_json['productName'];
-  document.querySelector('#L0-production-time').defaultValue = product_json['productProductionTime'];
+  document.querySelector('#L0-name').defaultValue = product_json['name'];
+  document.querySelector('#L0-production-time').defaultValue = product_json['productionTime'];
  };
 });
 
@@ -99,10 +99,10 @@ function addSubitemL2(L1ItemNumber) {
 
 //save product and display its structure
 document.querySelector('#save-product-btn').addEventListener('click', function () {
-  product_json['productName'] = document.querySelector('#L0-name').value;
-  product_json['productProductionTime'] = Number(document.querySelector('#L0-production-time').value);
-  editFields.push(product_json['productName']);
-  editFields.push(product_json['productProductionTime']);
+  product_json['name'] = document.querySelector('#L0-name').value;
+  product_json['productionTime'] = Number(document.querySelector('#L0-production-time').value);
+  editFields.push(product_json['name']);
+  editFields.push(product_json['productionTime']);
 
   let productStructure = document.getElementById('product-structure');
   let productStructureText = '';
@@ -110,7 +110,7 @@ document.querySelector('#save-product-btn').addEventListener('click', function (
   <p class="text-OK">Product saved succesfully!</p>
   <p>Product L0:</p>
   <li>Product Name: ${product_json['productName']} </li>
-  <li>Production/Assembly Time: ${product_json['productProductionTime']} day(s) </li>
+  <li>Production/Assembly Time: ${product_json['productionTime']} day(s) </li>
   </div>`;
 
   let subItemsL1 = ``;
@@ -134,10 +134,10 @@ document.querySelector('#save-product-btn').addEventListener('click', function (
       let jsonKeyL1 = `SubitemL1_${i}`;
       let jsonValueL1 = {};
       product_json[jsonKeyL1] = {};
-      jsonValueL1['Name'] = nextSubitemName;
-      jsonValueL1['Type'] = 'L1';
-      jsonValueL1['Quantity'] = Number(nextSubitemQuantity);
-      jsonValueL1['ProductionTime'] = Number(nextSubitemProductionTime);
+      jsonValueL1['name'] = nextSubitemName;
+      jsonValueL1['type'] = 'L1';
+      jsonValueL1['quantity'] = Number(nextSubitemQuantity);
+      jsonValueL1['productionTime'] = Number(nextSubitemProductionTime);
       // jsonValueL1['SubitemL2_1_1']={}
       product_json[jsonKeyL1] = jsonValueL1;
       editFields.push(product_json[jsonKeyL1]['L1SubitemNam']);
@@ -164,10 +164,10 @@ document.querySelector('#save-product-btn').addEventListener('click', function (
         //Extending Product JSON with subitems L2 for (i) Subitem L1
         let jsonKeyL2 = `SubitemL2_${i}_${j}`;
         let jsonValueL2 = {};
-        jsonValueL2['Name'] = nextL2SubitemName;
-        jsonValueL2['Type'] = 'L2';
-        jsonValueL2['Quantity'] = Number(nextL2SubitemQuantity);
-        jsonValueL2['ProductionTime'] = Number(nextL2SubitemProductionTime);
+        jsonValueL2['name'] = nextL2SubitemName;
+        jsonValueL2['type'] = 'L2';
+        jsonValueL2['quantity'] = Number(nextL2SubitemQuantity);
+        jsonValueL2['productionTime'] = Number(nextL2SubitemProductionTime);
         // console.log(jsonValueL2)
         product_json[jsonKeyL1][jsonKeyL2] = jsonValueL2;
       };
@@ -224,7 +224,7 @@ function saveOrder() {
   
   let jsonOrder = {};
 
-  jsonOrder['Quantity'] = L0OrderQuantity;
-  jsonOrder['Time'] = L0OrderTime;
+  jsonOrder['quantity'] = L0OrderQuantity;
+  jsonOrder['time'] = L0OrderTime;
   localStorage.setItem("productOrder",JSON.stringify(jsonOrder)); 
 }

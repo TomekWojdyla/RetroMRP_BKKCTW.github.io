@@ -11,8 +11,8 @@ function createPlan(){
         console.log("No valid productOrder!");
     } else {
 
-        let fulfillmentTime = order['Time'];
-        let orderQuantity = order['Quantity'];
+        let fulfillmentTime = order['time'];
+        let orderQuantity = order['quantity'];
 
         let jsonFulfillment = {};
         jsonFulfillment['Status'] = "in planning";
@@ -21,36 +21,36 @@ function createPlan(){
 
         //creates order sequentially
         //L0
-        productionStartL0 = fulfillmentTime - schematic['ProductionTime'];
+        productionStartL0 = fulfillmentTime - schematic['productionTime'];
         if (productionStartL0 < 0) {
             jsonFulfillment = {};
-            jsonFulfillment['Status'] = 'unachievable';
+            jsonFulfillment['status'] = 'unachievable';
         } else {
             newName = `L0-${[schematic['Name']]}`;
             //TODO rework checkStock()
-            amountL0 = orderQuantity - checkStock(`L0-${[schematic['Name']]}`);
-            submitOrder(jsonFulfillment, orderID, newName, productionStartL0, amountL0);
+            quantityL0 = orderQuantity - checkStock(`L0-${[schematic['name']]}`);
+            submitOrder(jsonFulfillment, orderID, newName, productionStartL0, quantityL0);
         //L1
             for(i=1; i <=3; i++) {
-                if (typeof schematic[`SubitemL1_${i}`] != "undefined" && jsonFulfillment['Status'] != 'unachievable') {
-                    productionStartL1 = productionStartL0 - schematic[`SubitemL1_${i}`]['ProductionTime'];
+                if (typeof schematic[`SubitemL1_${i}`] != "undefined" && jsonFulfillment['status'] != 'unachievable') {
+                    productionStartL1 = productionStartL0 - schematic[`SubitemL1_${i}`]['productionTime'];
                     if (productionStartL1 < 0) {
                         jsonFulfillment = {};
-                        jsonFulfillment['Status'] = 'unachievable';
+                        jsonFulfillment['status'] = 'unachievable';
                     } else {
-                        amountL1 = amountL0 * schematic[`SubitemL1_${i}`]['Quantity'] - checkStock(`L1-${schematic[`SubitemL1_${i}`]['Name']}`);
-                        newName = `L1-${i}-${schematic[`SubitemL1_${i}`]['Name']}`;
-                        submitOrder(jsonFulfillment, ++orderID, newName, productionStartL1, amountL1);
+                        quantityL1 = quantityL0 * schematic[`SubitemL1_${i}`]['quantity'] - checkStock(`L1-${schematic[`SubitemL1_${i}`]['Name']}`);
+                        newName = `L1-${i}-${schematic[`SubitemL1_${i}`]['name']}`;
+                        submitOrder(jsonFulfillment, ++orderID, newName, productionStartL1, quantityL1);
                         for(j=1; j <=3; j++) {
-                            if (typeof schematic[`SubitemL1_${i}`][`SubitemL2_${i}_${j}`] != "undefined" && jsonFulfillment['Status'] != 'unachievable') {
-                                productionStartL2 = productionStartL1 - schematic[`SubitemL1_${i}`][`SubitemL2_${i}_${j}`]['ProductionTime'];
+                            if (typeof schematic[`SubitemL1_${i}`][`SubitemL2_${i}_${j}`] != "undefined" && jsonFulfillment['status'] != 'unachievable') {
+                                productionStartL2 = productionStartL1 - schematic[`SubitemL1_${i}`][`SubitemL2_${i}_${j}`]['productionTime'];
                                 if (productionStartL2 < 0) {
                                     jsonFulfillment = {};
-                                    jsonFulfillment['Status'] = 'unachievable';
+                                    jsonFulfillment['status'] = 'unachievable';
                                 } else {
-                                amountL2 = amountL1 * schematic[`SubitemL1_${i}`][`SubitemL2_${i}_${j}`]['Quantity'] - checkStock(`L2-${schematic[`SubitemL1_${i}`]['Name']}`);
-                                newName = `L2-${i}-${j}-${schematic[`SubitemL1_${i}`][`SubitemL2_${i}_${j}`]['Name']}`;
-                                submitOrder(jsonFulfillment, ++orderID, newName, productionStartL2, amountL2);
+                                quantityL2 = quantityL1 * schematic[`SubitemL1_${i}`][`SubitemL2_${i}_${j}`]['quantity'] - checkStock(`L2-${schematic[`SubitemL1_${i}`]['Name']}`);
+                                newName = `L2-${i}-${j}-${schematic[`SubitemL1_${i}`][`SubitemL2_${i}_${j}`]['name']}`;
+                                submitOrder(jsonFulfillment, ++orderID, newName, productionStartL2, quantityL2);
                                 }
                             }
                         }
@@ -58,19 +58,19 @@ function createPlan(){
                 }
             }
         }
-        if (jsonFulfillment['Status'] != 'unachievable') {
-            jsonFulfillment['Status'] = 'in realization';
+        if (jsonFulfillment['status'] != 'unachievable') {
+            jsonFulfillment['status'] = 'in realization';
         }
         localStorage.setItem("fulfillmentPlan",JSON.stringify(jsonFulfillment));
     } 
 }
 
 //appends new order to fulfillment json
-function submitOrder(jsonToWrite, orderID, name, productionStart, amount){
+function submitOrder(jsonToWrite, orderID, name, productionStart, quantity){
     jsonToWrite[orderID] = {};
-    jsonToWrite[orderID]['Name'] = name;
-    jsonToWrite[orderID]['ProductionStart'] = productionStart;
-    jsonToWrite[orderID]['Amount'] = amount;
+    jsonToWrite[orderID]['name'] = name;
+    jsonToWrite[orderID]['productionStart'] = productionStart;
+    jsonToWrite[orderID]['quantity'] = quantity;
 }
 
 //checks and reserves items from stock
