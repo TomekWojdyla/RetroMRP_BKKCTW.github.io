@@ -13,6 +13,9 @@ document.querySelector('.again').addEventListener('click', function () {
 let product_json = {};
 let editFields = [];
 
+//Flags
+let editStockFlag = false;
+
 //Add Product - alternative route (create elements)
 document.querySelector('#add-product-btn').addEventListener('click', function () {
   editFields = [];
@@ -192,6 +195,87 @@ document.querySelector('#save-product-btn').addEventListener('click', function (
   localStorage.setItem("productSchematic",JSON.stringify(product_json));
 });
 
+//Adding stock quantities for the current schematic 
+function addStock(){
+  let jsonSchema = JSON.parse(localStorage.getItem("productSchematic"));
+
+  //Checking if schematic data exists
+  if(jsonSchema == null){
+    document.querySelector('#input-stock').innerHTML = `
+    <p><br>No schematics to create stock quantities from!</p>
+    `;
+  } else {
+    document.querySelector('#save-stock-btn').style.visibility = 'visible';
+    document.querySelector('#add-stock-btn').style.visibility = 'hidden';
+    document.querySelector('#input-stock').innerHTML = `
+    <p><br>Enter stock quantities for current schematic:</p>
+    <div class="input-stock-L0">
+    <h1>L0</h1>
+    <p id="L0-stock-name">${jsonSchema['name']}</p>
+    <span><input type="number" class="product_L0" id="L0-stock-quantity" value="0"/></span>
+
+    `;
+
+    //Generating elements recursively
+    (function addNextLevels(schematic, level, name){
+      let i = 0;
+      for (let key in schematic) {
+        if (key.toString().match(/\bSubitem/)) {
+          i++;
+          document.querySelector('#input-stock').innerHTML += `
+          <div class="input-stock-L${level<3?level:2}">
+          <h${level<6?level+1:6}>L${level}${name}-${i}</h${level<6?level+1:6}>
+          <p id="L${level}${name}-${i}-stock-name">${schematic[key]['name']}</p>
+          <span><input type="number" class="product_L0" id="L${level<3?level:2}${name}-${i}-stock-quantity" value="0"/></span>
+          `;
+          addNextLevels(schematic[key],level+1, name + `-${i}`);
+          document.querySelector('#input-stock').innerHTML += `</div>`;
+        }
+      }
+    })(jsonSchema, 1, '');
+
+    document.querySelector('#input-stock').innerHTML += `</div>`;
+
+    //Populating fields from existing json (if any values were at least once filled)
+    if (editStockFlag) {
+      let jsonStock = JSON.parse(localStorage.getItem("productStock"));
+      for(let stockID in jsonStock){
+        document.querySelector(`#${stockID}-stock-quantity`).value = jsonStock[stockID]['quantity'];
+      }
+    }
+  }
+}
+
+//Saving stock quantities
+function saveStock(){
+  let jsonStock = {};
+  jsonStock['L0'] = {};
+  jsonStock['L0']['name'] = document.querySelector("#L0-stock-name").innerHTML;
+  jsonStock['L0']['quantity'] = Number(document.querySelector("#L0-stock-quantity").value);
+
+  //Finding all other values for jsonStock by checking if elements exist
+  (function getDeeperStockValues(name, level){
+    for(let i=1; true; i++){
+      let newName = `L${level}${name}-${i}`;
+      if(document.getElementById(`${newName}-stock-name`)){        
+        jsonStock[`${newName}`] = {}
+        jsonStock[`${newName}`]['name'] = document.querySelector(`#${newName}-stock-name`).innerHTML;
+        jsonStock[`${newName}`]['quantity'] = Number(document.querySelector(`#${newName}-stock-quantity`).value);
+        getDeeperStockValues(name + `-${i}`, level+1)
+      } else {
+        break;
+      }
+    }
+  })('', 1);
+
+  localStorage.setItem("productStock",JSON.stringify(jsonStock));
+  document.querySelector('#save-stock-btn').style.visibility = 'hidden';
+  document.querySelector('#add-stock-btn').style.visibility = 'visible';
+  document.querySelector('#add-stock-btn').style.backgroundColor = '#e6b400';
+  document.querySelector('#add-stock-btn').innerHTML = 'Edit stock';
+  editStockFlag = true;
+  document.querySelector('#input-stock').innerHTML = ``;
+}
 
 // Adding order for L0 product
 function addOrder() {
