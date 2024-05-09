@@ -211,7 +211,7 @@ function addStock(){
   //Checking if schematic data exists
   if(jsonSchema == null){
     document.querySelector('#input-stock').innerHTML = `
-    <p><br>No schematics to create stock quantities from!</p>
+    <p class="text-error"><br>No schematics to create stock quantities from!</p>
     `;
   } else {
     document.querySelector('#save-stock-btn').style.visibility = 'visible';
@@ -284,7 +284,26 @@ function saveStock(){
   document.querySelector('#add-stock-btn').innerHTML = 'Edit stock';
   editStockFlag = true;
   document.querySelector('#input-stock').innerHTML = ``;
-}
+  
+  //Listing of entered data
+  document.querySelector('#input-stock').innerHTML += `<div class="listing" id="stock-structure">`
+  document.querySelector('#stock-structure').innerHTML += `
+  <p class="text-OK">Stock has been filled with products and materials:</p>
+  </div>`;
+  let emptyStockCheck = 0;
+  for(let item in jsonStock){
+    emptyStockCheck += jsonStock[item]['quantity'];
+    document.querySelector('#stock-structure').innerHTML += `
+    <p class="list-L${(item.charAt(1)<=2?item.charAt(1):2)}">
+    ${item.charAt(1)<2?'':('&emsp;').repeat(item.charAt(1)-1)}
+    ${item}:&nbsp;${jsonStock[item]["name"]}&emsp;&emsp;&emsp;${jsonStock[item]["quantity"]}
+    </p>`;
+  }
+  if(emptyStockCheck == 0){
+    document.querySelector('#stock-structure').innerHTML = `
+    <p>Stock remains empty!</p>`
+  }
+};
 
 // Adding order for L0 product
 function addOrder() {

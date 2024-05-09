@@ -87,6 +87,11 @@ header {
   display: flex;
 }
 
+.listing {
+  margin-left: 4rem;
+  line-height: 4rem;
+}
+
 .input-section-order {
   margin-top: 2rem;
   align-items: center;
