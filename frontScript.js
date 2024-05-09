@@ -205,8 +205,10 @@ function addOrder() {
   <p>
   Time from now<span><input type="number" class="product_L0" id = "order-fulfillment" value=""/></span>
   </p>`;
-  if (L0OrderQuantity && L0OrderTime) {
+  if (L0OrderQuantity) {
     document.querySelector('#order-quantity').defaultValue = L0OrderQuantity;
+  }
+  if (L0OrderTime) {
     document.querySelector('#order-fulfillment').defaultValue = L0OrderTime;
   }
 };
