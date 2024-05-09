@@ -218,17 +218,32 @@ let L0OrderTime = 0;
 
 //Saving Product Order
 function saveOrder() {
+  //Saving order data to variables
   L0OrderQuantity = Number(document.querySelector(`#order-quantity`).value);
   L0OrderTime = Number(document.querySelector('#order-fulfillment').value);
-  document.querySelector('#input-order').innerHTML = `Order: ${L0OrderQuantity} ea. of L0 Product in ${L0OrderTime} days`;
-  document.querySelector('#save-order-btn').style.visibility = 'hidden';
-  document.querySelector('#add-order-btn').style.visibility = 'visible';
-  document.querySelector('#add-order-btn').style.backgroundColor = '#e6b400';
-  document.querySelector('#add-order-btn').innerHTML = 'Edit order';
   
   let jsonOrder = {};
 
   jsonOrder['quantity'] = L0OrderQuantity;
   jsonOrder['time'] = L0OrderTime;
   localStorage.setItem("productOrder",JSON.stringify(jsonOrder)); 
+
+  //styling at save event
+  document.querySelector('#save-order-btn').style.visibility = 'hidden';
+  document.querySelector('#add-order-btn').style.visibility = 'visible';
+  document.querySelector('#add-order-btn').style.backgroundColor = '#e6b400';
+  document.querySelector('#add-order-btn').innerHTML = 'Edit order';
+
+  //Communication to user
+  if (L0OrderQuantity && L0OrderTime) {
+    document.querySelector('#input-order').innerHTML = 
+    `<p>Order: ${L0OrderQuantity} ea. of L0 Product in ${L0OrderTime} days</p>
+    <p>Mode: Verify feasibility of order.</p>`;
+  } else if (L0OrderQuantity) {
+    document.querySelector('#input-order').innerHTML = 
+    `<p>Order: ${L0OrderQuantity} ea. of L0 Product.</p>
+    <p>Mode: Estimate delivery time.</p>`;
+  } else {
+    document.querySelector('#input-order').innerHTML = `<p class = "text-error">No products were ordered! Edit order data</p>`
+  };
 }
