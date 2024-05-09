@@ -34,7 +34,7 @@ document.querySelector('#add-product-btn').addEventListener('click', function ()
   </div>
   <div id = "L1-input"></div>`;
  if (product_json != {}) {
-  document.querySelector('#L0-name').defaultValue = product_json['productName'];
+  document.querySelector('#L0-name').defaultValue = product_json['name'];
   document.querySelector('#L0-production-time').defaultValue = product_json['productionTime'];
  };
 });
@@ -102,10 +102,10 @@ function addSubitemL2(L1ItemNumber) {
 
 //save product and display its structure
 document.querySelector('#save-product-btn').addEventListener('click', function () {
-  product_json['productName'] = document.querySelector('#L0-name').value;
+  product_json['name'] = document.querySelector('#L0-name').value;
   product_json['productionTime'] = Number(document.querySelector('#L0-production-time').value);
   //saving data to editfields check array for null values
-  editFields.push(product_json['productName']);
+  editFields.push(product_json['name']);
   editFields.push(product_json['productionTime']);
 
   let productStructure = document.getElementById('product-structure');
@@ -113,7 +113,7 @@ document.querySelector('#save-product-btn').addEventListener('click', function (
   let L0 = `<div class = "list-L0">
   <p class="text-OK">Product saved succesfully!</p>
   <p>Product L0:</p>
-  <li>Product Name: ${product_json['productName']} </li>
+  <li>Product Name: ${product_json['name']} </li>
   <li>Production/Assembly Time: ${product_json['productionTime']} day(s) </li>
   </div>`;
 
