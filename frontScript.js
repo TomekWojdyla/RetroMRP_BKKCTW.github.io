@@ -25,7 +25,7 @@ document.querySelector('#add-product-btn').addEventListener('click', function ()
   `<div class = "input-section-content-L0">
   <h1>L0:</h1>
   <p>
-    Product name <span><input class = "product_L0" id = "L0-name" value = ""/></span>
+    Product name <span><input class = "product_L0" id = "L0-name"/></span>
   </p>
   <p>
     Production time<span><input type = "number" class = "product_L0" id = "L0-production-time" /></span>
@@ -34,7 +34,7 @@ document.querySelector('#add-product-btn').addEventListener('click', function ()
   </div>
   <div id = "L1-input"></div>`;
  if (product_json != {}) {
-  document.querySelector('#L0-name').defaultValue = product_json['name'];
+  document.querySelector('#L0-name').defaultValue = product_json['productName'];
   document.querySelector('#L0-production-time').defaultValue = product_json['productionTime'];
  };
 });
@@ -102,9 +102,10 @@ function addSubitemL2(L1ItemNumber) {
 
 //save product and display its structure
 document.querySelector('#save-product-btn').addEventListener('click', function () {
-  product_json['name'] = document.querySelector('#L0-name').value;
+  product_json['productName'] = document.querySelector('#L0-name').value;
   product_json['productionTime'] = Number(document.querySelector('#L0-production-time').value);
-  editFields.push(product_json['name']);
+  //saving data to editfields check array for null values
+  editFields.push(product_json['productName']);
   editFields.push(product_json['productionTime']);
 
   let productStructure = document.getElementById('product-structure');
@@ -143,9 +144,10 @@ document.querySelector('#save-product-btn').addEventListener('click', function (
       jsonValueL1['productionTime'] = Number(nextSubitemProductionTime);
       // jsonValueL1['SubitemL2_1_1']={}
       product_json[jsonKeyL1] = jsonValueL1;
-      editFields.push(product_json[jsonKeyL1]['L1SubitemNam']);
-      editFields.push(product_json[jsonKeyL1]['L1SubitemQuantity']);
-      editFields.push(product_json[jsonKeyL1]['L1SubitemProductionTime']);
+      //saving data to editfields check array for null values
+      editFields.push(product_json[jsonKeyL1]['name']);
+      editFields.push(product_json[jsonKeyL1]['quantity']);
+      editFields.push(product_json[jsonKeyL1]['productionTime']);
 
       //Listing L2 subitems
       let subItemsL2 = ``;
@@ -173,10 +175,15 @@ document.querySelector('#save-product-btn').addEventListener('click', function (
         jsonValueL2['productionTime'] = Number(nextL2SubitemProductionTime);
         // console.log(jsonValueL2)
         product_json[jsonKeyL1][jsonKeyL2] = jsonValueL2;
+        //saving data to editfields check array for null values
+        editFields.push(product_json[jsonKeyL1][jsonKeyL2]['name']);
+        editFields.push(product_json[jsonKeyL1][jsonKeyL2]['quantity']);
+        editFields.push(product_json[jsonKeyL1][jsonKeyL2]['productionTime']);
       };
       subItemsL1 += subItemsL2
     };
   
+  console.log(editFields);  
   //Reaction to nulls in product definition - smth not working yet
   if (editFields.includes(0)) {
     productStructure.innerHTML = `<p class = "text-error">Some fields were left empty. Please start again.</p>`
@@ -191,8 +198,10 @@ document.querySelector('#save-product-btn').addEventListener('click', function (
   document.querySelector('#save-product-btn').style.visibility = 'hidden';
   document.querySelector('.input-section-content-L0').style.visibility = 'hidden';
   document.querySelector("#product-input").innerHTML = ``;
-  //console.log(product_json);
   localStorage.setItem("productSchematic",JSON.stringify(product_json));
+
+  //Log product json to console
+  console.log(product_json);
 });
 
 //Adding stock quantities for the current schematic 
@@ -289,26 +298,45 @@ function addOrder() {
   <p>
   Time from now<span><input type="number" class="product_L0" id = "order-fulfillment" value=""/></span>
   </p>`;
-  if (typeof L0ProductOrder == 'object') {
+  if (L0OrderQuantity) {
     document.querySelector('#order-quantity').defaultValue = L0OrderQuantity;
+  }
+  if (L0OrderTime) {
     document.querySelector('#order-fulfillment').defaultValue = L0OrderTime;
   }
 };
 
-let L0ProductOrder = 0;
+let L0OrderQuantity = 0;
+let L0OrderTime = 0;
+
 //Saving Product Order
 function saveOrder() {
-  let L0OrderQuantity = Number(document.querySelector(`#order-quantity`).value);
-  let L0OrderTime = Number(document.querySelector('#order-fulfillment').value);
-  document.querySelector('#input-order').innerHTML = `Order: ${L0OrderQuantity} ea. of L0 Product in ${L0OrderTime} days`;
-  document.querySelector('#save-order-btn').style.visibility = 'hidden';
-  document.querySelector('#add-order-btn').style.visibility = 'visible';
-  document.querySelector('#add-order-btn').style.backgroundColor = '#e6b400';
-  document.querySelector('#add-order-btn').innerHTML = 'Edit order';
+  //Saving order data to variables
+  L0OrderQuantity = Number(document.querySelector(`#order-quantity`).value);
+  L0OrderTime = Number(document.querySelector('#order-fulfillment').value);
   
   let jsonOrder = {};
 
   jsonOrder['quantity'] = L0OrderQuantity;
   jsonOrder['time'] = L0OrderTime;
   localStorage.setItem("productOrder",JSON.stringify(jsonOrder)); 
+
+  //styling at save event
+  document.querySelector('#save-order-btn').style.visibility = 'hidden';
+  document.querySelector('#add-order-btn').style.visibility = 'visible';
+  document.querySelector('#add-order-btn').style.backgroundColor = '#e6b400';
+  document.querySelector('#add-order-btn').innerHTML = 'Edit order';
+
+  //Communication to user
+  if (L0OrderQuantity && L0OrderTime) {
+    document.querySelector('#input-order').innerHTML = 
+    `<p>Order: ${L0OrderQuantity} ea. of L0 Product in ${L0OrderTime} days</p>
+    <p>Mode: Verify feasibility of order.</p>`;
+  } else if (L0OrderQuantity) {
+    document.querySelector('#input-order').innerHTML = 
+    `<p>Order: ${L0OrderQuantity} ea. of L0 Product.</p>
+    <p>Mode: Estimate delivery time.</p>`;
+  } else {
+    document.querySelector('#input-order').innerHTML = `<p class = "text-error">No products were ordered! Edit order data</p>`
+  };
 }
