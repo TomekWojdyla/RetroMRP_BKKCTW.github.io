@@ -29,8 +29,10 @@ function createPlan(){
             jsonFulfillment = {};
             jsonFulfillment['status'] = 'unachievable';
         } else {
+            storageBefore = stock['L0']['quantity'];
             quantityL0 = checkStock(stock,'L0', order['quantity']);
-            submitOrder(jsonFulfillment, orderID, 'L0', schematic['name'], productionStartL0, quantityL0);
+            if(storageBefore != stock['L0'] && stock['L0']['quantity']>0) {productionStartL0 = fulfillmentTime};
+            submitOrder(jsonFulfillment, orderID, 'L0', schematic['name'], productionStartL0, fulfillmentTime, order['quantity'], quantityL0, storageBefore, stock['L0']['quantity']);
             //L1
             if(quantityL0 > 0) {
                 for(i=1; i <=3; i++) {
@@ -40,8 +42,11 @@ function createPlan(){
                             jsonFulfillment = {};
                             jsonFulfillment['status'] = 'unachievable';
                         } else {
-                            quantityL1 = checkStock(stock, `L1-${i}`, quantityL0 * schematic[`SubitemL1_${i}`]['quantity']);
-                            submitOrder(jsonFulfillment, ++orderID, `L1-${i}`, schematic[`SubitemL1_${i}`]['name'], productionStartL1, quantityL1);
+                            storageBefore = stock[`L1-${i}`]['quantity'];
+                            orderQuantity = quantityL0 * schematic[`SubitemL1_${i}`]['quantity']
+                            quantityL1 = checkStock(stock, `L1-${i}`, orderQuantity);
+                            if(stock[`L1-${i}`]['quantity'] != storageBefore && stock[`L1-${i}`]['quantity']>0) productionStartL1 = productionStartL0;
+                            submitOrder(jsonFulfillment, ++orderID, `L1-${i}`, schematic[`SubitemL1_${i}`]['name'], productionStartL1, productionStartL0, orderQuantity, quantityL1, storageBefore, stock[`L1-${i}`]['quantity']);
                             //L2
                             if(quantityL1 > 0) {
                                 for(j=1; j <=3; j++) {
@@ -51,10 +56,11 @@ function createPlan(){
                                             jsonFulfillment = {};
                                             jsonFulfillment['status'] = 'unachievable';
                                         } else {
-                                            quantityL2 = checkStock(stock, `L2-${i}-${j}`, quantityL1 * schematic[`SubitemL1_${i}`][`SubitemL2_${i}_${j}`]['quantity']);
-                                            //quantityL2 = quantityL1 * schematic[`SubitemL1_${i}`][`SubitemL2_${i}_${j}`]['quantity']; //- checkStock(`L2-${schematic[`SubitemL1_${i}`]['Name']}`);
-                                            newName = `L2-${i}-${j}-${schematic[`SubitemL1_${i}`][`SubitemL2_${i}_${j}`]['name']}`;
-                                            submitOrder(jsonFulfillment, ++orderID, `L2-${i}-${j}`, schematic[`SubitemL1_${i}`][`SubitemL2_${i}_${j}`]['name'], productionStartL2, quantityL2);
+                                            storageBefore = stock[`L2-${i}-${j}`]['quantity'];
+                                            orderQuantity = quantityL1 * schematic[`SubitemL1_${i}`][`SubitemL2_${i}_${j}`]['quantity'];
+                                            quantityL2 = checkStock(stock, `L2-${i}-${j}`, orderQuantity);
+                                            if(stock[`L2-${i}-${j}`]['quantity'] != storageBefore && stock[`L2-${i}-${j}`]['quantity']>0) productionStartL2 = productionStartL1;
+                                            submitOrder(jsonFulfillment, ++orderID, `L2-${i}-${j}`, schematic[`SubitemL1_${i}`][`SubitemL2_${i}_${j}`]['name'], productionStartL2, productionStartL1, orderQuantity, quantityL2, storageBefore, stock[`L2-${i}-${j}`]['quantity']);
                                         }
                                     }
                                 }
@@ -73,12 +79,16 @@ function createPlan(){
 }
 
 //appends new order to fulfillment json
-function submitOrder(jsonToWrite, orderID, type, name, productionStart, quantity){
+function submitOrder(jsonToWrite, orderID, type, name, productionStart, productionEnd, quantityToSend, quantityToProduce, storageBefore, storageAfter){
     jsonToWrite[orderID] = {};
     jsonToWrite[orderID]['type'] = type;
     jsonToWrite[orderID]['name'] = name;
     jsonToWrite[orderID]['productionStart'] = productionStart;
-    jsonToWrite[orderID]['quantity'] = quantity;
+    jsonToWrite[orderID]['productionCompletion'] = productionEnd;
+    jsonToWrite[orderID]['quantityToSend'] = quantityToSend;
+    jsonToWrite[orderID]['quantityToProduce'] = quantityToProduce;
+    jsonToWrite[orderID]['storageBefore'] = storageBefore;
+    jsonToWrite[orderID]['storageAfter'] = storageAfter;
 }
 
 //checks and reserves items from stock
