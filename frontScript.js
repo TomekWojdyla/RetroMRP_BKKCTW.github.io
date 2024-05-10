@@ -166,7 +166,7 @@ document.querySelector('#save-product-btn').addEventListener('click', function (
   let productStructureText = '';
   let L0 = `<div class = "list-L0">
   <p class="text-OK">Product saved succesfully!</p>
-  <p>Product L0:</p>
+  <p class="text-primary">Product L0:</p>
   <li>Product Name: ${product_json['name']} </li>
   <li>Production/Assembly Time: ${product_json['productionTime']} day(s) </li>
   </div>`;
@@ -181,7 +181,7 @@ document.querySelector('#save-product-btn').addEventListener('click', function (
       let nextIDProductionTime = `#L1_${i}-production-time`;
       let nextSubitemProductionTime = document.querySelector(nextIDProductionTime).value;
       let newSubitem = `<div class = "list-L1">
-      <p>L1: Subitem ${i}</p> 
+      <p class="text-primary">L1: Subitem ${i}</p> 
       <li>     Product Name: ${nextSubitemName}</li> 
       <li>     Quantity: ${nextSubitemQuantity}</li>
       <li>     Production Time: ${nextSubitemProductionTime} day(s)</li>
@@ -213,7 +213,7 @@ document.querySelector('#save-product-btn').addEventListener('click', function (
         let nextL2IDProductionTime = `#L2_${i}_${j}-production-time`;
         let nextL2SubitemProductionTime = document.querySelector(nextL2IDProductionTime).value;
         let newL2Subitem = `<div class = "list-L2">
-        <p>L2: Subitem ${i}.${j}</p> 
+        <p class="text-primary">L2: Subitem ${i}.${j}</p> 
         <li>     Product Name: ${nextL2SubitemName}</li> 
         <li>     Quantity: ${nextL2SubitemQuantity}</li>
         <li>     Production Time: ${nextL2SubitemProductionTime} day(s)</li>
@@ -355,7 +355,7 @@ function saveStock(){
   }
   if(emptyStockCheck == 0){
     document.querySelector('#stock-structure').innerHTML = `
-    <p>Stock remains empty!</p>`
+    <p class="text-warning">Stock remains empty!</p>`
   }
 };
 

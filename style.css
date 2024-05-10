@@ -242,3 +242,11 @@ h3 {
 .text-error {
   color: red;
 }
+
+.text-warning {
+  color: orange;
+}
+
+.text-primary {
+  color: skyblue;
+}
