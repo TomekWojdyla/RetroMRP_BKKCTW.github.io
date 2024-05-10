@@ -240,15 +240,15 @@ document.querySelector('#save-product-btn').addEventListener('click', function (
   console.log(editFields);  
   //Reaction to nulls in product definition - smth not working yet
   if (editFields.includes(0)) {
-    productStructure.innerHTML = `<p class = "text-error">Some fields were left empty. Please start again.</p>`
+    productStructure.innerHTML = `<p class = "text-error">Some fields were left empty or set to zero. Edit product before continuing!</p>`
   } else {
     productStructure.innerHTML = productStructureText + L0 + subItemsL1;
-    document.querySelector('#add-product-btn').style.visibility = 'visible';
-    document.querySelector('#add-product-btn').innerHTML = 'Edit product';
-    document.querySelector('#add-product-btn').style.backgroundColor = '#e6b400';
   };
 
   //Visibility actions upon save event
+  document.querySelector('#add-product-btn').style.visibility = 'visible';
+  document.querySelector('#add-product-btn').innerHTML = 'Edit product';
+  document.querySelector('#add-product-btn').style.backgroundColor = '#e6b400';
   document.querySelector('#save-product-btn').style.visibility = 'hidden';
   document.querySelector('.input-section-content-L0').style.visibility = 'hidden';
   document.querySelector("#product-input").innerHTML = ``;
