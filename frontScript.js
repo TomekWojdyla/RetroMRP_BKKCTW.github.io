@@ -16,7 +16,7 @@ let editFields = [];
 //Flags
 let editStockFlag = false;
 
-//Add Product - alternative route (create elements)
+//Add Product + Edit Product 
 document.querySelector('#add-product-btn').addEventListener('click', function () {
   editFields = [];
   document.querySelector('#add-product-btn').style.visibility = 'hidden';
@@ -37,6 +37,61 @@ document.querySelector('#add-product-btn').addEventListener('click', function ()
   document.querySelector('#L0-name').defaultValue = product_json['name'];
   document.querySelector('#L0-production-time').defaultValue = product_json['productionTime'];
  };
+
+//additional L1 products in edition
+if (subitmesL1Count) {
+  for (let counterL1 = 1; counterL1 < subitmesL1Count+1; counterL1++) {
+  let additionalProductEditTextL1 =  `<div class = "input-section-content-L1" id = "L1_${counterL1}-input">
+  <h2>L1:${counterL1}</h2>
+  <p>
+    Product name <span><input class="product_L0" id="L1_${counterL1}-name" /></span>
+  </p>
+  <p>
+    Quantity <span><input type="number" class="product_L0" id="L1_${counterL1}-quantity" /></span>
+  </p>
+  <p>
+    Production time<span><input type="number" class="product_L0" id="L1_${counterL1}-production-time" /></span>
+  </p>
+  <button class="btn" id="add-L2-${counterL1}" onclick = "addSubitemL2(${counterL1})">Add subitem (L2) - Max (3)</button>
+  </div>
+  <div id = "L2-${counterL1}-input"></div>`;
+  
+  let previousProductEditTextL1 = document.querySelector("#L1-input").outerHTML; 
+  let fullProductEditTextL1 = previousProductEditTextL1 + additionalProductEditTextL1;
+  document.querySelector("#L1-input").innerHTML = fullProductEditTextL1;
+
+  // existing values added as defaults
+  document.querySelector(`#L1_${counterL1}-name`).defaultValue = product_json[`SubitemL1_${counterL1}`]['name'];
+  document.querySelector(`#L1_${counterL1}-quantity`).defaultValue = product_json[`SubitemL1_${counterL1}`]['quantity'];
+  document.querySelector(`#L1_${counterL1}-production-time`).defaultValue = product_json[`SubitemL1_${counterL1}`]['productionTime'];
+  
+  //Add L2 elements in edition if they exist
+  if (subitemsL2Count[counterL1]) {
+    for (let counterL2 = 1; counterL2 < subitemsL2Count[counterL1]+1; counterL2++) {
+      let additionalProductEditTextL2 =  `<div class = "input-section-content-L2" id = "L2_${counterL1}_${counterL2}-input">
+      <h3>L2:${counterL1}.${counterL2}</h3>
+      <p>
+        Product name <span><input class="product_L0" id="L2_${counterL1}_${counterL2}-name" /></span>
+      </p>
+      <p>
+        Quantity <span><input type="number" class="product_L0" id="L2_${counterL1}_${counterL2}-quantity" /></span>
+      </p>
+      <p>
+        Production time<span><input type="number" class="product_L0" id="L2_${counterL1}_${counterL2}-production-time" /></span>
+      </p>
+      </div>`;
+      let previousProductEditTextL2 = document.querySelector(`#L2-${counterL1}-input`).outerHTML; 
+      let fullProductEditTextL2 = previousProductEditTextL2 + additionalProductEditTextL2;
+      document.querySelector(`#L2-${counterL1}-input`).innerHTML = fullProductEditTextL2;
+  
+      // existing values added as defaults
+      document.querySelector(`#L2_${counterL1}_${counterL2}-name`).defaultValue = product_json[`SubitemL1_${counterL1}`][`SubitemL2_${counterL1}_${counterL2}`]['name'];
+      document.querySelector(`#L2_${counterL1}_${counterL2}-quantity`).defaultValue = product_json[`SubitemL1_${counterL1}`][`SubitemL2_${counterL1}_${counterL2}`]['quantity'];
+      document.querySelector(`#L2_${counterL1}_${counterL2}-production-time`).defaultValue = product_json[`SubitemL1_${counterL1}`][`SubitemL2_${counterL1}_${counterL2}`]['productionTime'];
+    };
+  };
+};
+};
 });
 
 let subitmesL1Count = 0;
@@ -62,14 +117,13 @@ function addSubitemL1() {
   </p>
   <button class="btn" id="add-L2-${subitmesL1Count}" onclick = "addSubitemL2(${subitmesL1Count})">Add subitem (L2) - Max (3)</button>
   </div>
-  <div id = "L${subitmesL1Count}-2-input"></div>`;
+  <div id = "L2-${subitmesL1Count}-input"></div>`;
   const fullSubitemStructure = currentSubitemStructure + newSubitemStructure
   document.querySelector("#L1-input").innerHTML = fullSubitemStructure
   };
   if (subitmesL1Count===3) {
     document.querySelector("#add-L1").innerHTML = `MAX subitems added!`
   };
-  //console.log(subitmesL1Count)
 };
 
 
@@ -77,7 +131,7 @@ function addSubitemL1() {
 function addSubitemL2(L1ItemNumber) {
   if (subitemsL2Count[L1ItemNumber]<3) {
   subitemsL2Count[L1ItemNumber] += 1;
-  const currentSubitemStructure = document.querySelector(`#L${L1ItemNumber}-2-input`).outerHTML
+  const currentSubitemStructure = document.querySelector(`#L2-${L1ItemNumber}-input`).outerHTML
   const newSubitemStructure = 
   `<div class = "input-section-content-L2" id = "L2_${L1ItemNumber}_${subitemsL2Count[L1ItemNumber]}-input">
   <h3>L2:${L1ItemNumber}.${subitemsL2Count[L1ItemNumber]}</h3>
@@ -92,7 +146,7 @@ function addSubitemL2(L1ItemNumber) {
   </p>
   </div>`;
   const fullSubitemStructure = currentSubitemStructure + newSubitemStructure
-  document.querySelector(`#L${L1ItemNumber}-2-input`).innerHTML = fullSubitemStructure
+  document.querySelector(`#L2-${L1ItemNumber}-input`).innerHTML = fullSubitemStructure
   };
   if (subitemsL2Count[L1ItemNumber]===3) {
     document.querySelector(`#add-L2-${L1ItemNumber}`).innerHTML = `MAX subitems added!`
