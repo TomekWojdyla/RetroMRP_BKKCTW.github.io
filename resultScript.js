@@ -1,4 +1,4 @@
-// Retrieve fulfillment plan data from local memory
+// Retrieve plan data from local memory
 const planData = JSON.parse(localStorage.getItem("fulfillmentPlan"));
 
 // Function generates tables for each type
@@ -51,9 +51,9 @@ function genTables(fulfillmentPlan) {
                 if (index === 0 && i === 0) {
                     cell.textContent = "Quantity to Send";
                 } else if (i === order.productionCompletion) {
-                    cell.textContent = order.quantityToSend; // Insert quantity to send for the production completion day
+                    cell.textContent = order.quantityToSend; 
                 } else {
-                    cell.textContent = ""; // Leave other cells empty
+                    cell.textContent = "";
                 }
             }
         });
@@ -90,12 +90,12 @@ function genTables(fulfillmentPlan) {
             }
         });
 
-        // Append the table to the fulfillment plan element
+        // Append the table to theplan element
         planElement.appendChild(table);
     }
 }
 
-// Check if fulfillment plan data exists
+// Check if plan data exists
 if (planData) {
     if (planData.status === 'in-realization') {
         // Call the function
