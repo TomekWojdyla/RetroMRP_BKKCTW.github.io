@@ -17,7 +17,7 @@ function genTables(fulfillmentPlan) {
                 typeOrder[type] = [];
             }
             typeOrder[type].push(order);
-            maxDay = Math.max(maxDay, order.productionCompletion);
+            maxDay = Math.max(maxDay, order.productionCompletion)+1;
         }
     }
     console.log("Max production completion day:", maxDay);
@@ -31,7 +31,7 @@ function genTables(fulfillmentPlan) {
         const daysCell = document.createElement('th');
         daysCell.textContent = "Days";
         headerRow.appendChild(daysCell);
-        for (let i = 1; i <= maxDay; i++) {
+        for (let i = 0; i <= maxDay-1; i++) {
             const header = document.createElement('th');
             header.textContent = `Day ${i}`;
             headerRow.appendChild(header);
