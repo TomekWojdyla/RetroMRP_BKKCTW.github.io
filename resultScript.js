@@ -50,7 +50,7 @@ function genTables(fulfillmentPlan) {
                 const cell = row.insertCell();
                 if (index === 0 && i === 0) {
                     cell.textContent = "Quantity to Send";
-                } else if (i === order.productionCompletion) {
+                } else if (i === order.productionCompletion+1) {
                     cell.textContent = order.quantityToSend; 
                 } else {
                     cell.textContent = "";
@@ -66,7 +66,7 @@ function genTables(fulfillmentPlan) {
                 const cell = row.insertCell();
                 if (index === 0 && i === 0) {
                     cell.textContent = "Quantity in Stock";
-                } else if (i >= order.productionCompletion) {
+                } else if (i >= order.productionCompletion+1) {
                     cell.textContent = order.storageAfter;
                 } else {
                     cell.textContent = order.storageBefore;
@@ -82,7 +82,7 @@ function genTables(fulfillmentPlan) {
                 const cell = row.insertCell();
                 if (index === 0 && i === 0) {
                     cell.textContent = "Quantity to produce";
-                } else if (i === order.productionStart) {
+                } else if (i === order.productionStart+1) {
                     cell.textContent = order.quantityToProduce;
                 } else {
                     cell.textContent = "";
