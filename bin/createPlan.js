@@ -4,6 +4,7 @@
 //'unachievable' - can't generate proper data from current data set, 
 //'in-realization' - generation finished with success
 function createPlan(){
+    window.open('result.html');
     let schematic = JSON.parse(localStorage.getItem("productSchematic"));
     let order = JSON.parse(localStorage.getItem("productOrder"));
     let stock = JSON.parse(localStorage.getItem("productStock"));
