@@ -250,3 +250,59 @@ h3 {
 .text-primary {
   color: skyblue;
 }
+table {
+  padding-top: 3rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+td{
+  background: rgb(98, 90, 110);
+  border: 2px solid #eee;
+  font-family: inherit;
+  color: inherit;
+  height: 5rem;
+  font-size: 3rem;
+  text-align: center;
+  padding: 1rem;
+}
+th{
+  background-color: rgb(39, 43, 39);
+  border: 2px solid #eee;
+  font-family: inherit;
+  color: inherit;
+  height: 5rem;
+  font-size: 3rem;
+  text-align: center;
+  padding: 1rem;
+}
+.unachievable-message{
+  background: none;
+  font-family: inherit;
+  color: inherit;
+  font-size: 6rem;
+  padding: 2.5rem;
+  width: auto;
+  text-align: left;
+  margin-bottom: 3rem;
+}
+.error-message{
+  background: none;
+  font-family: inherit;
+  color: inherit;
+  font-size: 6rem;
+  padding: 2.5rem;
+  width: auto;
+  text-align: left;
+  margin-bottom: 3rem;
+}
+.types-heading{
+  background: none;
+  font-family: inherit;
+  color: inherit;
+  font-size: 3rem;
+  padding: 2.5rem;
+  text-align: left;
+  margin-top: 2rem;
+}
