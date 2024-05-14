@@ -99,7 +99,8 @@ let subitemsL2Count = {};
 
 //Add subitems L1
 function addSubitemL1() {
-  if (subitmesL1Count < 3) {
+  let maxElementsAllowed = 3; //here one can change allowable subitems count
+  if (subitmesL1Count < maxElementsAllowed) {
     subitmesL1Count += 1;
     subitemsL2Count[subitmesL1Count] = 0;
     const currentSubitemStructure = document.querySelector('#L1-input').outerHTML;
@@ -120,7 +121,7 @@ function addSubitemL1() {
     const fullSubitemStructure = currentSubitemStructure + newSubitemStructure;
     document.querySelector('#L1-input').innerHTML = fullSubitemStructure;
   }
-  if (subitmesL1Count === 3) {
+  if (subitmesL1Count === maxElementsAllowed) {
     document.querySelector('#add-L1').innerHTML = `MAX subitems added!`;
   }
 }
