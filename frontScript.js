@@ -96,10 +96,10 @@ document.querySelector('#add-product-btn').addEventListener('click', function ()
 
 let subitmesL1Count = 0;
 let subitemsL2Count = {};
+let maxElementsAllowed = 3; //here one can change allowable subitems count
 
 //Add subitems L1
 function addSubitemL1() {
-  let maxElementsAllowed = 3; //here one can change allowable subitems count
   if (subitmesL1Count < maxElementsAllowed) {
     subitmesL1Count += 1;
     subitemsL2Count[subitmesL1Count] = 0;
@@ -128,7 +128,7 @@ function addSubitemL1() {
 
 //Add subitems L2
 function addSubitemL2(L1ItemNumber) {
-  if (subitemsL2Count[L1ItemNumber] < maxElementsAllowed) {
+  if (subitemsL2Count[L1ItemNumber] < maxElementsAllowedL2) {
     subitemsL2Count[L1ItemNumber] += 1;
     const currentSubitemStructure = document.querySelector(`#L2-${L1ItemNumber}-input`).outerHTML;
     const newSubitemStructure = `<div class = "input-section-content-L2" id = "L2_${L1ItemNumber}_${subitemsL2Count[L1ItemNumber]}-input">
@@ -146,7 +146,7 @@ function addSubitemL2(L1ItemNumber) {
     const fullSubitemStructure = currentSubitemStructure + newSubitemStructure;
     document.querySelector(`#L2-${L1ItemNumber}-input`).innerHTML = fullSubitemStructure;
   }
-  if (subitemsL2Count[L1ItemNumber] === maxElementsAllowed) {
+  if (subitemsL2Count[L1ItemNumber] === maxElementsAllowedL2) {
     document.querySelector(`#add-L2-${L1ItemNumber}`).innerHTML = `MAX subitems added!`;
   }
 }
