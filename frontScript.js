@@ -128,7 +128,7 @@ function addSubitemL1() {
 
 //Add subitems L2
 function addSubitemL2(L1ItemNumber) {
-  if (subitemsL2Count[L1ItemNumber] < 3) {
+  if (subitemsL2Count[L1ItemNumber] < maxElementsAllowed) {
     subitemsL2Count[L1ItemNumber] += 1;
     const currentSubitemStructure = document.querySelector(`#L2-${L1ItemNumber}-input`).outerHTML;
     const newSubitemStructure = `<div class = "input-section-content-L2" id = "L2_${L1ItemNumber}_${subitemsL2Count[L1ItemNumber]}-input">
@@ -146,7 +146,7 @@ function addSubitemL2(L1ItemNumber) {
     const fullSubitemStructure = currentSubitemStructure + newSubitemStructure;
     document.querySelector(`#L2-${L1ItemNumber}-input`).innerHTML = fullSubitemStructure;
   }
-  if (subitemsL2Count[L1ItemNumber] === 3) {
+  if (subitemsL2Count[L1ItemNumber] === maxElementsAllowed) {
     document.querySelector(`#add-L2-${L1ItemNumber}`).innerHTML = `MAX subitems added!`;
   }
 }
