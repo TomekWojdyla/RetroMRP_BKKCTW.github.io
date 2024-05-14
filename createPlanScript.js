@@ -164,7 +164,7 @@ function createPlan(){
             jsonFulfillment['status'] = 'in-realization';
         }
         localStorage.setItem("fulfillmentPlan",JSON.stringify(jsonFulfillment));
-        if(stock != null && jsonFulfillment['status'] != 'unachievable') localStorage.setItem("productStock",JSON.stringify(stock));
+        //if(stock != null && jsonFulfillment['status'] != 'unachievable') localStorage.setItem("productStock",JSON.stringify(stock));
     } 
 }
 
