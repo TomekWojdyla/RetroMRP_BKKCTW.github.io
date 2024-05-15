@@ -8,7 +8,61 @@
     <title>Instructions</title>
   </head>
   <body>
+    <header class="input">
+      <h1 class="text-OK">How to use Retro MRP ?</h1>
+    </header>
     <main>
+      <section class = "input">
+      <h2>Once you close the 'Welcome' modal window, the following steps are recommended:</h2><br>
+      <h3 class="text-primary">1. Click 'Add product' button to define product structure.</h3><br>
+        <p class="list-inst">- In current configuration one can create a single main product (L0 level) and 3 subitems in L1 level following withe their own 3 subitems each in L2 level.</p>
+        <p class="list-inst">- Use 'Add subitem' buttons in the end of line to add subitems.</p>
+        <p class="list-inst">- Known issue: once data is entered in either L1 or L2 level subitems and user add additional subitem in any level, data that has already been entered is cleared and you need to enter it again.</P>
+        <P class="list-inst">- Known issue: removing added suitemn line is not possible. If you would like to decrease the number of subitems in your product structure you shall press 'Start Again' button that will clear all input entered so far.</P>
+        <p class="list-inst">- Null/Zero values are prohibited as quantity or production time entry - MRP will identify them as issues during save and will ask to edit again.</p>
+        <p class="list-inst">- Once your product structure is done, click 'Save Product' button. MRP will comunicate about the success and display product structure or inform you about the issue.</p><br>
+      <h3 class="text-primary">2. Once your product is defined, one may correct some entered values with 'Edit Product' button.</h3><br>
+        <p class="list-inst">- Changing values and adding subitems on any level is allowed.</p>
+        <p class="list-inst">- Deleting subitems is not enabled - use 'Start Again' button instead.</p><br>
+      <h3 class="text-primary">3. Define stock amouts of product and subitems by clicking 'Add stock' button.</h3><br>
+        <p class="list-inst">- Step of definig stock values is obligatory even if all entries are left as zero/null. In stock section 'zeros' are allowed.</p>
+        <p class="list-inst">- Stock definition shall dynamically adjust to previously defined product structure and allow to enter values for all subitems.</p>
+        <p class="list-inst">- Once your stock quantities are entered, click 'Save Stock' button. MRP will comunicate about the success and display stock quantities or inform you about the issue.</p><br>
+      <h3 class="text-primary">4. Once your stock is defined, one may correct some entered values with 'Edit Stock' button.</h3><br>
+        <p class="list-inst">NOTE: If one has edited Product structure, editing stock is equally necessary, even if stock remains empty (all zero values).</p>
+      <h3 class="text-primary">5. Click 'Add order' button to define your order.</h3><br>
+        <p class="list-inst">- One may enter required quantity only (no date) and then MRP in analysis stage will provide production timeline indicating the earlies possible delivery time.</p>
+        <p class="list-inst">- One may also enter quantity and time expected/desired. In such case MRP will analyse if order is feasible. If not, apropriate message will be displayed, if yes, production timeline will be displayed.</p>
+        <p class="list-inst">- Save your entry with 'Save orded' button. Once data was saved you can always edit it with 'Edit order' button.</p>
+      <h3 class="text-primary">6. Once all the sections were filled (product, stock, order) one shall click 'Run magic...' button :).</h3><br>
+        <p class="list-inst">- Results of the analysis shall be displayed in a new tab of web browser.</p><br>
+      <h3 class="text-primary">7. If you woild like to redo entire analysis, it is recommended to use 'Start Again' button or simply refresh the web browser window.</h3><br>
+      </section>
+      <section class = "input instr">
+        <h1 class="text-OK"> Enjoy!!! ;)</h1>
+      </section>
+      <section class="input">
+        <p>Copyright (c) 2012-2024 Scott Chacon and others</p><br>
+
+        <p>Permission is hereby granted, free of charge, to any person obtaining
+          a copy of this software and associated documentation files (the
+          "Software"), to deal in the Software without restriction, including
+          without limitation the rights to use, copy, modify, merge, publish,
+          distribute, sublicense, and/or sell copies of the Software, and to
+          permit persons to whom the Software is furnished to do so, subject to
+          the following conditions:</p>
+        <br>
+          <p>The above copyright notice and this permission notice shall be
+          included in all copies or substantial portions of the Software.</p>
+          <br>
+          <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+          EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+          MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+          NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+          LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+          OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+          WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+      </section>
     </main>
     <script src="frontScript.js"></script>
     <script src="createPlanScript.js"></script>

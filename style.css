@@ -38,6 +38,16 @@ header {
   margin-top: 2rem;
 }
 
+.instr {
+  border-bottom: 7px solid #eee;
+  margin-top: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 4rem;
+  line-height: 10rem;
+}
+
 .input-section-content-L0 {
   margin-top: 4rem;
   visibility: visible;
@@ -161,6 +171,14 @@ h3 {
 .list-L2 {
   margin-left: 12rem;
   font-size: 1.5rem;
+}
+
+.list-inst {
+  margin-left: 7rem;
+  font-size: 2rem;
+  line-height: 3rem;
+  list-style-type: square;
+  margin-bottom: 3rem;
 }
 
 .titleblock {
